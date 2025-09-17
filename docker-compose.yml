@@ -1,0 +1,71 @@
+# OAuth2-Hardened Identity Platform - Services Playground
+services:
+  # MongoDB for various DB storage (use for testing)
+  mongo:
+    image: mongo:4.4.6
+    networks:
+      - app-network
+    ports:
+      - 27017:27017
+
+  # Keycloak for mock upstream identity providers
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    command: start-dev
+    networks:
+      - keycloak-network
+      - app-network  # Bridge network to allow your app to communicate with Keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_HOSTNAME_STRICT: false
+      KC_HTTP_ENABLED: true
+    depends_on:
+      - keycloak-db
+
+  # Postgres for Keycloak (isolated to Keycloak network)
+  keycloak-db:
+    image: postgres:13.2-alpine
+    ports:
+      - 12987:5432
+    networks:
+      - keycloak-network  # Only accessible within Keycloak services
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: keycloak
+
+  # Main Postgres for your OAuth2 platform (when you add it)
+  # postgres:
+  #   image: postgres:13.2-alpine
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: oauth2_platform
+
+networks:
+  # Network for Keycloak and its database (isolated)
+  keycloak-network:
+    driver: bridge
+    internal: false  # Set to true if you want complete isolation from internet
+
+  # Network for your main application services
+  app-network:
+    driver: bridge
+    internal: false
+
+  # Optional: Database-only network for maximum isolation
+  # db-network:
+  #   driver: bridge
+  #   internal: true  # No internet access for databases
+
