@@ -4,19 +4,31 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.1.0",
+    "@types/bun": "^1.2.19",
     "typescript": "^5.5.3",
     "zod": "^4.1.5",
     "js-yaml": "^4.1.0",
     "@types/js-yaml": "^4.0.9",
     "path": "^0.12.7",
-    "file-system": "^2.2.2"
+    "file-system": "^2.2.2",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^6.3.4",
+    "compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "cors": "^2.8.5"
   },
   "dependencies": {
+    "@types/compression": "^1.8.1",
+    "helmet": "^8.1.0",
+    "express": "^5.1.0"
   },
   "private": true
 }
