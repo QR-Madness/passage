@@ -1,10 +1,10 @@
 openapi: 3.1.0
 info:
-  title: O2IP
+  title: Passage
   description: OAuth2 Identity Platform - A secure, composable authentication framework providing OAuth/OIDC integrations for enterprise-grade applications.
   version: 1.0.0
   contact:
-    name: O2IP Support
+    name: Passage Support
     url: https://github.com/your-org/oauth2-hardened-identity-platform
   license:
     name: MIT
