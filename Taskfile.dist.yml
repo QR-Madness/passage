@@ -1,0 +1,49 @@
+# Ensure you have task installed:
+# https://taskfile.dev
+
+version: '3'
+style: default
+tailwind:
+rsc: false
+aliases:
+
+vars:
+  GREETING: Task is running!
+
+tasks:
+  # Default task for now (soon will be a build + test...)
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  # Clean the project's artifact
+  clean:
+    cmds:
+      - rm -vrf dist
+      - rm -vrf build
+
+  # Build the platform
+  build:
+    cmds:
+      - bun run build
+
+  # Standard test commands
+  test:
+    cmds:
+      - bun run test
+
+  test-coverage:
+    cmds:
+      - bun run test-coverage
+
+  test-watch:
+    cmds:
+      - bun run test-watch
+
+  # Future dev tool
+  dx-import-idea:
+    prompt: "This will overwrite existing JetBrains configs, are you sure?"
+    cmds:
+      - echo "Not implemented yet"
+
