@@ -1,4 +1,4 @@
-# OAuth2-Hardened Identity Platform - Services Playground
+# Passage - Services Playground
 services:
   # MongoDB for various DB storage (use for testing)
   mongo:

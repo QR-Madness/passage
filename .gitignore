@@ -14,5 +14,5 @@ yarn-error.log*
 .idea/
 
 # AI configuration files
-.warp.md
+.WARP.md
 .bolt
