@@ -9,4 +9,10 @@ yarn-error.log*
 /.pnp
 .pnp.js
 
+# IDE configuration files
 .vscode/*
+.idea/
+
+# AI configuration files
+.warp.md
+.bolt

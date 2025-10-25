@@ -1,7 +1,7 @@
 import { createApp } from './app';
 import { logger } from './utils/logger';
 import { loadSecurityConfig } from './utils/config';
-import { connectDatabase } from './db';
+import { connectDatabase } from './services/db';
 import { gracefulShutdown } from './utils/gracefulShutdown';
 
 async function bootstrap() {
