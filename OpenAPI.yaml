@@ -5,15 +5,15 @@ info:
   version: 1.0.0
   contact:
     name: Passage Support
-    url: https://github.com/your-org/oauth2-hardened-identity-platform
+    url: https://github.com/your-org/passage
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: 'https://api.o2ip.dev'
+  - url: 'https://api.passage.dev'
     description: Production server
-  - url: 'https://staging.o2ip.dev'
+  - url: 'https://staging.passage.dev'
     description: Staging server
   - url: 'http://localhost:3000'
     description: Development server
