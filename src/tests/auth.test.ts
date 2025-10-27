@@ -1,6 +1,5 @@
 // tests/auth.test.ts
 import { describe, it, beforeEach, afterEach } from "node:test";
-import { strict as assert } from 'node:assert';
 import { TestEnvironment, TestDataBuilders, TestHelpers } from './test-utils';
 
 describe('Authentication Tests', () => {

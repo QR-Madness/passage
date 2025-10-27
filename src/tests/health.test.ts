@@ -1,7 +1,5 @@
 // tests/health.test.ts
 import { describe, it, beforeEach, afterEach } from "node:test";
-import { strict as assert } from 'node:assert';
-import request from 'supertest';
 import { TestEnvironment } from './test-utils';
 
 describe('Health Routes', () => {
