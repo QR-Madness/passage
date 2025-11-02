@@ -1,5 +1,15 @@
 # Passage - Services Playground
 services:
+  # Passage service
+  passage:
+    image: passage:latest
+    networks:
+      app-network:
+        aliases:
+          - passage
+    depends_on:
+      - keycloak
+
   # MongoDB for various DB storage (use for testing)
   mongo:
     image: mongo:4.4.6

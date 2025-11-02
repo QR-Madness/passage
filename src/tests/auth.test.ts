@@ -13,6 +13,8 @@ describe('Authentication Tests', () => {
     await testEnv.cleanup();
   });
 
+  it('discovery endpoint should return 200', async () => {})
+
   // it('should handle OAuth2 authorization flow', async () => {
   //   const context = await testEnv.createContext('auth-test');
   //

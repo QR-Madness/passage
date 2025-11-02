@@ -18,7 +18,7 @@ export function setupRoutes(app: Application) {
 
   app.get('/', (req, res) => {
     res.json({
-      message: 'OAuth2 Hardened Identity Platform',
+      message: 'Passage',
       version: '1.0.0',
       status: 'running',
       timestamp: new Date().toISOString()

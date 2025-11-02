@@ -11,6 +11,13 @@ export interface TestContext {
 export class TestEnvironment {
   private contexts: Map<string, TestContext> = new Map();
 
+  /**
+   * Creates and initializes a new test context with the specified name.
+   *
+   * @param {string} [name='default'] - The name of the context to create.
+   * Defaults to 'default' if not specified.
+   * @return {Promise<TestContext>} A promise that resolves to the created TestContext object.
+   */
   async createContext(name: string = 'default'): Promise<TestContext> {
     const app = createApp({
       env: 'test',
