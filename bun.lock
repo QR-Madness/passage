@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "oauth2-hardened-identity-platform",
+      "name": "passage-v1",
       "dependencies": {
         "@types/compression": "^1.8.1",
         "express": "^5.1.0",

@@ -1,15 +1,13 @@
-import { Application } from 'express';
-// import { setupRateLimit } from './middleware/rateLimit';
-// import { setupRequestLogger } from './middleware/requestLogger';
-// import { setupValidation } from './middleware/validator';
+import express from 'express';
+import CommonMiddleware from './middleware/commonMiddleware';
+import ErrorHandlerMiddleware from './middleware/errorHandlerMiddleware';
 
-export function setupMiddleware(app: Application, securityConfig: any) {
-  // Request logging
-  // setupRequestLogger(app);
-
-  // Rate limiting
-  // setupRateLimit(app, securityConfig.rateLimit);
-
-  // Input validation
-  // setupValidation(app);
+/**
+ * Setup middleware for the application, loaded in order of declaration.
+ * @param app Express application
+ */
+export function setupMiddleware(app: express.Application) {
+  new CommonMiddleware().mount(app);
+  new ErrorHandlerMiddleware().mount(app);
+  // Add more middleware here
 }
