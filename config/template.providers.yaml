@@ -1,0 +1,8 @@
+providers:
+  - name: template
+    type: oidc
+    config:
+      provider_url: "/oidc-native"
+      client_id: "your_client_id"
+    test_config:
+      use_mock_provider: true
