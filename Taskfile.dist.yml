@@ -38,8 +38,8 @@ tasks:
       - bun run test-watch
 
   # Future dev tool
-  dx-import-idea:
-    prompt: "This will overwrite existing JetBrains configs, are you sure?"
-    cmds:
-      - echo "Not implemented yet"
+#  dx-import-idea:
+#    prompt: "This will overwrite existing JetBrains configs, are you sure?"
+#    cmds:
+#      - echo "Not implemented yet"
 

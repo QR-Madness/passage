@@ -10,6 +10,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 
+# Placeholder servers; configure the servers to point to your hosts/deployments
 servers:
   - url: 'https://api.passage.dev'
     description: Production server

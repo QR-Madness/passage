@@ -8,7 +8,6 @@
     "test": "bun test",
     "test:watch": "bun test --watch",
     "test:coverage": "bun test --coverage",
-
     "deploy-services": "docker-compose up -d",
     "teardown-services": "docker-compose down"
   },
@@ -30,8 +29,9 @@
   },
   "dependencies": {
     "@types/compression": "^1.8.1",
+    "express": "^5.1.0",
     "helmet": "^8.1.0",
-    "express": "^5.1.0"
+    "oidc-provider": "^9.5.2"
   },
   "private": true
 }

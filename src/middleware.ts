@@ -9,5 +9,5 @@ import ErrorHandlerMiddleware from './middleware/errorHandlerMiddleware';
 export function setupMiddleware(app: express.Application) {
   new CommonMiddleware().mount(app);
   new ErrorHandlerMiddleware().mount(app);
-  // Add more middleware here
+  // Add more middleware here to mount
 }
