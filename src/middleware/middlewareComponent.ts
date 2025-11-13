@@ -3,7 +3,7 @@ import express from "express";
 
 export default abstract class MiddlewareComponent {
   protected constructor() {
-    logger.info(`MiddlewareComponent initialized at ${new Date().toISOString()}`);
+    logger.info(`MiddlewareComponent initialized`);
   }
 
   /**

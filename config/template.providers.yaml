@@ -1,5 +1,6 @@
+#
 providers:
-  - name: template
+  - name: oidc-template
     type: oidc
     config:
       provider_url: "/oidc-native"

@@ -37,6 +37,10 @@ tasks:
     cmds:
       - bun run test-watch
 
+  express-server:
+    cmds:
+      - bun run express-dev
+
   # Future dev tool
 #  dx-import-idea:
 #    prompt: "This will overwrite existing JetBrains configs, are you sure?"

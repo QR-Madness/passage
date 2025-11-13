@@ -21,3 +21,5 @@ export const SecurityConfigSchema = z.object({
     }),
   }),
 });
+
+export type SecurityConfigType = z.infer<typeof SecurityConfigSchema>;

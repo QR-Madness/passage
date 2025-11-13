@@ -74,6 +74,7 @@ class Logger {
   }
 
   debug(message: string, meta?: any): void {
+      // TODO Implement a debug log inhibitor to prevent debug logs in production
     this.log(LOG_LEVELS.DEBUG, 'debug', message, meta);
   }
 }

@@ -2,109 +2,47 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
 import {z} from 'zod';
-import path from 'path';
-import {SecurityConfigSchema} from "./schemas/securityConfig";
+import {SecurityConfigSchema, SecurityConfigType} from "./schemas/securityConfig";
+import {ProvidersConfig, ProvidersConfigType} from "./schemas/providersConfig";
+import {logger} from "./logger";
+import path from "node:path";
 
-// Default configuration for different environments
-const defaultConfigs = {
-  test: {
-    cors: {
-      origins: ['http://localhost:3000', 'http://127.0.0.1:3000'],
-      credentials: true
-    },
-    rateLimit: {
-      windowMs: 15 * 60 * 1000,
-      max: 1000, // Higher limit for tests
-      standardHeaders: true,
-      legacyHeaders: false
-    },
-    headers: {
-      contentSecurityPolicy: true,
-      hsts: {
-        maxAge: 31536000,
-        includeSubDomains: true,
-        preload: true
-      }
+const ENV: "production" | "development" = process.env.NODE_ENV === "development" ? 'development' : 'production';
+const configFilePrefix = ENV === 'production' ? 'production' : 'template';
+
+const CONFIG_DIR = path.join(process.cwd(), 'config');
+const SECURITY_CONFIG_FILE = path.join(CONFIG_DIR, `${configFilePrefix}.security.yaml`);
+const PROVIDERS_CONFIG_FILE =path.join(CONFIG_DIR, `${configFilePrefix}.providers.yaml`);
+
+/**
+ * Ensures a config exists and returns the parsed YAML data.
+ * @param configPath
+ */
+function ensureYamlConfig(configPath: string): any {
+    try {
+        logger.debug(`Loading config from ${configPath}`);
+        if (fs.existsSync(configPath)) {
+            const configFile = fs.readFileSync(configPath, 'utf8');
+            // TODO use a safe parser
+            return yaml.load(configFile);
+        }
+    } catch (error) {
+        // Config file doesn't exist or is invalid, use defaults
+        console.info(`Config file not found or invalid!`);
     }
-  },
-  development: {
-    cors: {
-      origins: ['http://localhost:3000', 'http://127.0.0.1:3000'],
-      credentials: true
-    },
-    rateLimit: {
-      windowMs: 15 * 60 * 1000,
-      max: 100,
-      standardHeaders: true,
-      legacyHeaders: false
-    },
-    headers: {
-      contentSecurityPolicy: true,
-      hsts: {
-        maxAge: 31536000,
-        includeSubDomains: true,
-        preload: true
-      }
-    }
-  },
-  production: {
-    cors: {
-      origins: process.env.CORS_ORIGINS?.split(',') || ['https://yourdomain.com'],
-      credentials: true
-    },
-    rateLimit: {
-      windowMs: 15 * 60 * 1000,
-      max: 50, // Stricter limit for production
-      standardHeaders: true,
-      legacyHeaders: false
-    },
-    headers: {
-      contentSecurityPolicy: true,
-      hsts: {
-        maxAge: 31536000,
-        includeSubDomains: true,
-        preload: true
-      }
-    }
-  }
-};
+}
 
-export function loadSecurityConfig(env?: string): z.infer<typeof SecurityConfigSchema> {
-  const currentEnv = env || process.env.NODE_ENV || 'development';
+/**
+ * Loads the security configuration from the specified environment.
+ * @param env
+ */
+export function loadSecurityConfig(): SecurityConfigType {
+    return SecurityConfigSchema.parse(ensureYamlConfig(SECURITY_CONFIG_FILE));
+}
 
-  // Try to load from a config file first
-  try {
-    const configPath = path.join(process.cwd(), 'config', 'local.security.yaml');
 
-    if (fs.existsSync(configPath)) {
-      const configFile = fs.readFileSync(configPath, 'utf8');
-      const yamlConfig = yaml.load(configFile);
-
-      // Parse and validate the loaded config
-      const result = SecurityConfigSchema.safeParse(yamlConfig);
-      if (result.success) {
-        return result.data;
-      } else {
-        console.warn('Invalid security config file, using defaults:', result.error);
-      }
-    }
-  } catch (error) {
-    // Config file doesn't exist or is invalid, use defaults
-    console.info(`Config file not found or invalid, using default config for ${currentEnv}`);
-  }
-
-  // Fallback to environment-specific defaults
-  const envConfig = defaultConfigs[currentEnv as keyof typeof defaultConfigs] || defaultConfigs.development;
-
-  // Parse and validate the default config
-  const result = SecurityConfigSchema.safeParse(envConfig);
-  if (result.success) {
-    return result.data;
-  }
-
-  // Ultimate fallback - return minimal config
-  console.warn('Using minimal fallback security configuration');
-  return SecurityConfigSchema.parse({});
+export function loadProvidersConfig(): ProvidersConfigType {
+    return ProvidersConfig.parse(ensureYamlConfig(PROVIDERS_CONFIG_FILE))
 }
 
 // Export the schema for type inference

@@ -31,7 +31,7 @@ Uses the Bun as a package manager and runtime for blazing fast speeds, especiall
 > - Git
 > - Docker
 > - Bun
-> - Task (a modernized GNU-make; check out [Taskfile.dist.yml](./Taskfile.dist.yml)!)
+> - Taskfile (a modernized GNU-make; check out [Taskfile.dist.yml](./Taskfile.dist.yml)!)
 
 > **Timeline of Development**
 > ![img.png](readme/media/timeline.png)

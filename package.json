@@ -9,7 +9,8 @@
     "test:watch": "bun test --watch",
     "test:coverage": "bun test --coverage",
     "deploy-services": "docker-compose up -d",
-    "teardown-services": "docker-compose down"
+    "teardown-services": "docker-compose down",
+    "express-dev": "NODE_ENV=development bun run src/server.ts"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
