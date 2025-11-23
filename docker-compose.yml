@@ -21,12 +21,14 @@ services:
   # Keycloak for mock upstream identity providers
   keycloak:
     image: quay.io/keycloak/keycloak:23.0
-    command: start-dev
+    command: start-dev --import-realm
     networks:
       - keycloak-network
       - app-network  # Bridge network to allow your app to communicate with Keycloak
     ports:
       - "8080:8080"
+    volumes:
+      - ./config/keycloak:/opt/keycloak/data/import
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin

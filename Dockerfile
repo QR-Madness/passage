@@ -13,4 +13,4 @@ WORKDIR server
 RUN bun install
 
 # Run the default task for now...
-CMD task default
+CMD task server

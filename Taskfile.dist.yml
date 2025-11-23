@@ -19,10 +19,15 @@ tasks:
       - rm -vrf dist
       - rm -vrf build
 
-  # Build the platform
-  build:
+  build-app:
     cmds:
       - bun run build
+
+  # Build the platform
+  build:
+    deps: [build-app]
+    cmds:
+      - docker build -t passage .
 
   # Standard test commands
   test:
@@ -37,9 +42,21 @@ tasks:
     cmds:
       - bun run test-watch
 
-  express-server:
+  server:
+    cmds:
+      - bun run express
+
+  server-dev:
     cmds:
       - bun run express-dev
+
+  launch:
+    cmds:
+      - docker-compose up
+
+  teardown:
+    cmds:
+      - docker-compose down
 
   # Future dev tool
 #  dx-import-idea:

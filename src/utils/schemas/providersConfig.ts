@@ -2,7 +2,7 @@ import {z} from "zod";
 
 export const ProviderEntrySchema = z.object({
     name: z.string(),
-    type: z.string({error: "Invalid/Missing provider type"}),
+    type: z.string({error: "Invalid/Missing provider type"}).regex(/^(oidc|oauth2|saml)$/),
     config: z.object({
         client_id: z.string(),
         provider_url: z.string(),
