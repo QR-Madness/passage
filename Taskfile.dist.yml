@@ -7,13 +7,11 @@ vars:
   GREETING: Task is running!
 
 tasks:
-  # Default task for now (soon will be a build + test...)
   default:
     cmds:
       - echo "{{.GREETING}}"
     silent: true
 
-  # Clean the project's artifact
   clean:
     cmds:
       - rm -vrf dist
@@ -23,14 +21,19 @@ tasks:
     cmds:
       - bun run build
 
-  # Build the platform
   build:
     deps: [build-app]
     cmds:
       - docker build -t passage .
 
-  # Standard test commands
   test:
+    deps: [launch]
+    cmds:
+      - defer: {task: teardown}
+      - bun run test
+
+  test:keep-hot:
+    deps: [ launch ]
     cmds:
       - bun run test
 
@@ -52,7 +55,7 @@ tasks:
 
   launch:
     cmds:
-      - docker-compose up
+      - docker-compose up -d
 
   teardown:
     cmds:
