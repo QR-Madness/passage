@@ -1,6 +1,7 @@
 # common ignores
 /tmp
 /out-tsc
+dist/
 
 /node_modules
 npm-debug.log*
@@ -16,3 +17,8 @@ yarn-error.log*
 # AI configuration files
 .WARP.md
 .bolt
+
+# Docusaurus
+.docusaurus/
+build/
+.DS_Store

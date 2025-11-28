@@ -17,12 +17,12 @@ tasks:
       - rm -vrf dist
       - rm -vrf build
 
-  build-app:
+  build:app:
     cmds:
       - bun run build
 
   build:
-    deps: [build-app]
+    deps: [build:app]
     cmds:
       - docker build -t passage .
 
@@ -32,16 +32,11 @@ tasks:
       - defer: {task: teardown}
       - bun run test
 
-  test:keep-hot:
-    deps: [ launch ]
-    cmds:
-      - bun run test
-
-  test-coverage:
+  test:coverage:
     cmds:
       - bun run test-coverage
 
-  test-watch:
+  test:watch:
     cmds:
       - bun run test-watch
 
@@ -49,7 +44,7 @@ tasks:
     cmds:
       - bun run express
 
-  server-dev:
+  server:dev:
     cmds:
       - bun run express-dev
 
@@ -60,6 +55,26 @@ tasks:
   teardown:
     cmds:
       - docker-compose down
+
+  docs:start:
+    desc: "Start Docusaurus development server"
+    cmds:
+      - bun run docs:start
+
+  docs:build:
+    desc: "Build Docusaurus static site"
+    cmds:
+      - bun run docs:build
+
+  docs:serve:
+    desc: "Serve built Docusaurus site locally"
+    cmds:
+      - bun run docs:serve
+
+  docs:clear:
+    desc: "Clear Docusaurus cache"
+    cmds:
+      - bun run docs:clear
 
   # Future dev tool
 #  dx-import-idea:
