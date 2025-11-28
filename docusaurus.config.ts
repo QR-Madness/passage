@@ -43,7 +43,7 @@ const config: Config = {
             sidebarPath: './docs/sidebars.ts',
             editUrl: 'https://github.com/your-org/passage/tree/master/',
         }, blog: false, theme: {
-            customCss: './src/css/custom.css',
+            customCss: './docs/css/custom.css',
         },
     } satisfies Preset.Options,],],
 
