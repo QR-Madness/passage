@@ -1,9 +1,18 @@
-#
+# Master list of providers; used to configure the actual authentication flows
 providers:
-  - name: oidc-template
-    type: oidc
-    config:
-      provider_url: "/oidc-native"
-      client_id: "your_client_id"
-    test_config:
-      use_mock_provider: true
+  - name: oidc-example
+    # Authentication type/protocol (OIDC, SAML, etc.)
+    auth_protocol: oidc
+
+    OidcConfig:
+      supported_auth_flows: ['']
+
+    # Contains configuration for the server
+    ServerConfig:
+      endpoint_url: "/oidc-example" # This server's endpoint root for the provider
+      client_id: "passage-oidc-client-example>" # CID provided to the upstream provider
+
+    # Contains information for testing
+    TestConfig:
+      # Replace this with your own realm (if using the Passage-bundled Keycloak mock server)
+      keycloak_realm: "oidc-template"

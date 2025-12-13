@@ -21,7 +21,7 @@
   ],
   "clients": [
     {
-      "clientId": "passage-client",
+      "clientId": "passage-oidc-client-example",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "passage-client-secret",

@@ -3,6 +3,8 @@
 /out-tsc
 dist/
 
+config/template.secrets.yaml
+
 /node_modules
 npm-debug.log*
 yarn-debug.log*
