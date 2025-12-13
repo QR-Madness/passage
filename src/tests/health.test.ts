@@ -1,21 +1,23 @@
 // tests/health.test.ts
-import { describe, it, beforeEach, afterEach } from "node:test";
-import { TestEnvironment } from './test-utils';
+import {describe, it, beforeEach, afterEach, before, after} from "node:test";
+import {TestContext, TestEnvironment} from './test-utils';
 
 describe('Health Routes', () => {
   let testEnv: TestEnvironment;
+  let context: TestContext;
 
-  beforeEach(async () => {
-    testEnv = new TestEnvironment();
+  before(async () => {
+      testEnv = new TestEnvironment();
+      context = await testEnv.createContext("health-test");
   });
 
-  afterEach(async () => {
+  after(async () => {
     await testEnv.cleanup();
   });
 
   it('Should return healthy status', async () => {
-    const context = await testEnv.createContext("health-test");
-    const response = context.request(context.app).get('/health')
-    response.expect(200)
-  })
+    await context.request(context.app)
+      .get('/health')
+      .expect(200);
+  });
 });
