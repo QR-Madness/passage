@@ -4,6 +4,11 @@ import {loadProvidersConfig, loadSecurityConfig} from './utils/config';
 import {gracefulShutdown} from './utils/gracefulShutdown';
 import {ProvidersConfigType} from "./utils/schemas/providersConfig";
 import {SecurityConfigType} from "./utils/schemas/securityConfig";
+import express from "express";
+
+export let serverApp: express.Application;
+export let providersConfig: ProvidersConfigType;
+export let securityConfig: SecurityConfigType;
 
 async function bootstrap() {
     try {
@@ -30,6 +35,7 @@ async function bootstrap() {
         // Graceful shutdown handling
         setupGracefulShutdown(server);
 
+        serverApp = app;
         return server;
     } catch (error) {
         logger.error('Failed to start server', error);
@@ -71,7 +77,9 @@ function setupGracefulShutdown(server: any) {
 
 // Only run if this file is executed directly
 if (require.main === module) {
-    bootstrap();
+    bootstrap().then(r => {
+        logger.info('Server started');
+    });
 }
 
 export {bootstrap};

@@ -22,3 +22,6 @@ yarn-error.log*
 .docusaurus/
 build/
 .DS_Store
+
+# Local KMS
+kms-local.keystore

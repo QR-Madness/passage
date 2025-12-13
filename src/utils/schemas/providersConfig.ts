@@ -1,16 +1,19 @@
 import {z} from "zod";
+import {RegexPatterns} from "../regex";
 
 export const ProviderEntrySchema = z.object({
     name: z.string(),
-    type: z.string({error: "Invalid/Missing provider type"}).regex(/^(oidc|oauth2|saml)$/),
-    config: z.object({
+    auth_protocol: z.string({error: "Invalid/Missing provider type"}).regex(RegexPatterns.ensureSupportedAuthProtocol),
+    ServerConfig: z.object({
+        endpoint_url: z.string(),
         client_id: z.string(),
-        provider_url: z.string(),
-        // provider_url: z.url({pattern: new RegExp('/*')}),
-    }),
-    test_config: z.object({
-        use_mock_provider: z.boolean(),
-    }).optional(),
+    }).loose(),
+    TestConfig: z.object({
+        keycloak_realm: z.string(),
+    }).loose().optional(),
+    OidcConfig: z.object({
+        supported_auth_flows: z.array(z.string()),
+    }).loose().optional()
 }).loose();
 
 export type ProviderEntryType = z.infer<typeof ProviderEntrySchema>;
