@@ -5,6 +5,7 @@ import {gracefulShutdown} from './utils/gracefulShutdown';
 import {ProvidersConfigType} from "./utils/schemas/providersConfig";
 import {SecurityConfigType} from "./utils/schemas/securityConfig";
 import express from "express";
+import {localKMS} from "./services/kms-local";
 
 export let serverApp: express.Application;
 export let providersConfig: ProvidersConfigType;
@@ -36,6 +37,11 @@ async function bootstrap() {
         setupGracefulShutdown(server);
 
         serverApp = app;
+        
+        localKMS.initialize().then(() => {
+            logger.info('Local KMS initialized');
+        });
+
         return server;
     } catch (error) {
         logger.error('Failed to start server', error);

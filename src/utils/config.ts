@@ -32,10 +32,6 @@ function ensureYamlConfig(configPath: string): any {
     }
 }
 
-/**
- * Loads the security configuration from the specified environment.
- * @param env
- */
 export function loadSecurityConfig(): SecurityConfigType {
     return SecurityConfigSchema.parse(ensureYamlConfig(SECURITY_CONFIG_FILE));
 }
@@ -47,3 +43,4 @@ export function loadProvidersConfig(): ProvidersConfigType {
 
 // Export the schema for type inference
 export type SecurityConfig = z.infer<typeof SecurityConfigSchema>;
+export type ProvidersConfig = z.infer<typeof ProvidersConfig>;
