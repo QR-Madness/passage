@@ -12,7 +12,21 @@ export const ProviderEntrySchema = z.object({
         keycloak_realm: z.string(),
     }).loose().optional(),
     OidcConfig: z.object({
+        // Supported OAuth2/OIDC flows
         supported_auth_flows: z.array(z.string()),
+
+        // Upstream provider configuration (for federation)
+        upstream_issuer: z.string().url().optional(),
+        upstream_client_id: z.string().optional(),
+        upstream_client_secret_ref: z.string().optional(), // KMS secret reference
+
+        // Scopes to request from upstream provider
+        upstream_scopes: z.array(z.string()).optional(),
+
+        // Token configuration
+        access_token_lifetime: z.number().int().positive().optional(),
+        id_token_lifetime: z.number().int().positive().optional(),
+        refresh_token_lifetime: z.number().int().positive().optional(),
     }).loose().optional()
 }).loose();
 

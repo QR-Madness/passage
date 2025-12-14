@@ -5,12 +5,28 @@ providers:
     auth_protocol: oidc
 
     OidcConfig:
-      supported_auth_flows: ['']
+      supported_auth_flows:
+        - authorization_code
+        - refresh_token
+
+      # Upstream provider federation (e.g., Keycloak, Auth0, Okta)
+      upstream_issuer: "http://localhost:8080/realms/oidc-template"
+      upstream_client_id: "passage-broker"
+      upstream_client_secret_ref: "UpstreamClientSecret" # Reference to secret in secrets.yaml
+      upstream_scopes:
+        - openid
+        - profile
+        - email
+
+      # Token lifetimes (in seconds)
+      access_token_lifetime: 3600      # 1 hour
+      id_token_lifetime: 3600          # 1 hour
+      refresh_token_lifetime: 86400    # 24 hours
 
     # Contains configuration for the server
     ServerConfig:
       endpoint_url: "/oidc-example" # This server's endpoint root for the provider
-      client_id: "passage-oidc-client-example>" # CID provided to the upstream provider
+      client_id: "passage-oidc-client-example" # CID provided to downstream clients
 
     # Contains information for testing
     TestConfig:
