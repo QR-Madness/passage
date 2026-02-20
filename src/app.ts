@@ -1,9 +1,9 @@
 import express from 'express';
 
-import { loadSecurityConfig } from './utils/config';
-import { setupMiddleware } from './middleware';
-import { setupRoutes } from './routes';
-import { logger } from './utils/logger';
+import {ENV as env} from './utils/config';
+import {setupMiddleware} from './middleware';
+import {setupRoutes} from './routes';
+import {logger} from './utils/logger';
 
 export interface AppConfig {
   // TODO Type these to their respective config schema
@@ -23,9 +23,9 @@ export function createApp() {
   setupMiddleware(app);
   setupRoutes(app);
 
-  logger.info('Express app created successfully', {
-    env: 'development'
-  });
+  logger.info('Passage server instance created...', {
+    env, pid: env == "development" ? process.pid : undefined,
+  })
 
   return app;
 }

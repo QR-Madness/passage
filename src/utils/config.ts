@@ -2,12 +2,11 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
 import {z} from 'zod';
-import {SecurityConfigSchema, SecurityConfigType} from "./schemas/securityConfig";
-import {ProvidersConfig, ProvidersConfigType} from "./schemas/providersConfig";
+import {ProvidersConfig, ProvidersConfigType, SecurityConfigSchema, SecurityConfigType} from "./schemas/config.schemas";
 import {logger} from "./logger";
 import path from "node:path";
 
-const ENV: "production" | "development" = process.env.NODE_ENV === "development" ? 'development' : 'production';
+export const ENV: "production" | "development" = process.env.NODE_ENV === "development" ? 'development' : 'production';
 const configFilePrefix = ENV === 'production' ? 'production' : 'template';
 
 const CONFIG_DIR = path.join(process.cwd(), 'config');

@@ -47,7 +47,7 @@ src/
 
 | File                                   | Modification                                |
 |----------------------------------------|---------------------------------------------|
-| `src/routes/auth.routes.ts`            | Complete `setupOidcRoutes()` implementation |
+| `src/routes/auth.routes.ts`            | Complete `setupOidcProviderRoutes()` implementation |
 | `src/routes.ts`                        | Integrate auth routes mounting              |
 | `src/server.ts`                        | Add OIDC service initialization             |
 | `src/utils/schemas/providersConfig.ts` | Extend schema for upstream provider config  |
@@ -153,13 +153,13 @@ src/
 
 ### Phase 4: Route Integration
 
-- [ ] **4.1 Complete `setupOidcRoutes()`** (`src/routes/auth.routes.ts`)
+- [ ] **4.1 Complete `setupOidcProviderRoutes()`** (`src/routes/auth.routes.ts`)
     - Create Express Router
     - Mount all OIDC handlers under provider's endpoint_url
     - Return router for mounting
 
 - [ ] **4.2 Update Main Routes** (`src/routes.ts`)
-    - Uncomment/add `setupAuthRoutes(app)` call
+    - Uncomment/add `setupProviderRoutes(app)` call
     - Ensure proper mounting order
 
 - [ ] **4.3 Bootstrap Integration** (`src/server.ts`)
@@ -204,7 +204,7 @@ src/
 | 12    | 3.4 Token Handler      | 2.4, 2.3, 2.5 |
 | 13    | 3.5 UserInfo Handler   | 2.4, 2.5      |
 | 14    | 3.6 Logout Handler     | 2.3           |
-| 15    | 4.1 setupOidcRoutes    | 3.1-3.6       |
+| 15    | 4.1 setupOidcProviderRoutes    | 3.1-3.6       |
 | 16    | 4.2 Routes Integration | 4.1           |
 | 17    | 4.3 Bootstrap          | 2.1, 2.3      |
 | 18    | 5.1-5.2 Tests          | All above     |
@@ -215,7 +215,7 @@ src/
 
 | File                                   | Purpose                                                     |
 |----------------------------------------|-------------------------------------------------------------|
-| `src/routes/auth.routes.ts`            | Main file to modify - contains `setupOidcRoutes()` stub     |
+| `src/routes/auth.routes.ts`            | Main file to modify - contains `setupOidcProviderRoutes()` stub     |
 | `src/services/kms-local.ts`            | Pattern reference for singleton service design              |
 | `src/utils/schemas/providersConfig.ts` | Schema to extend                                            |
 | `src/tests/test-utils.ts`              | Test utilities with `TestDataBuilders`, `MockProviderUtils` |

@@ -2,8 +2,7 @@ import {createApp} from './app';
 import {logger} from './utils/logger';
 import {loadProvidersConfig, loadSecurityConfig} from './utils/config';
 import {gracefulShutdown} from './utils/gracefulShutdown';
-import {ProvidersConfigType} from "./utils/schemas/providersConfig";
-import {SecurityConfigType} from "./utils/schemas/securityConfig";
+import {ProvidersConfigType, SecurityConfigType} from "./utils/schemas/config.schemas";
 import express from "express";
 import {localKMS} from "./services/kms-local";
 
@@ -37,7 +36,7 @@ async function bootstrap() {
         setupGracefulShutdown(server);
 
         serverApp = app;
-        
+
         localKMS.initialize().then(() => {
             logger.info('Local KMS initialized');
         });

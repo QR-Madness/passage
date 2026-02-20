@@ -15,10 +15,13 @@ describe('OIDC Authentication Tests', () => {
         await testEnv.cleanup();
     });
 
-    it('discovery endpoint should return 200', async () => {
+    it('discovery endpoint should emit metadata and return 200', async () => {
         // TODO Integrate with the actual OIDC provider
-        await context.request(context.app)
+        const res = await context.request(context.app)
             .post('/auth/oidc/.well-known/openid-configuration')
             .expect(200);
+
+        const data = res.body;
+        // TODO Validate response data
     });
 });
