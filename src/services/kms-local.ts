@@ -270,7 +270,10 @@ class LocalKMS {
     }
 }
 
-// Export singleton instance
+/**
+ * Singleton instance of LocalKMS.
+ * Initialized on server startup in development environments.
+ */
 export const localKMS = new LocalKMS();
 
 // Export class for testing
