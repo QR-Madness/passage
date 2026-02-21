@@ -16,9 +16,8 @@ describe('OIDC Authentication Tests', () => {
     });
 
     it('discovery endpoint should emit metadata and return 200', async () => {
-        // TODO Integrate with the actual OIDC provider
         const res = await context.request(context.app)
-            .post('/auth/oidc/.well-known/openid-configuration')
+            .post('/oidc-example/.well-known/openid-configuration')
             .expect(200);
 
         const data = res.body;

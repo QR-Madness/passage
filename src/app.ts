@@ -12,16 +12,16 @@ export interface AppConfig {
   providersConfig: any;
 }
 
-export function createApp() {
+export async function createApp() {
   const app = express();
 
   // Trust proxy (important for rate limiting behind reverse proxy)
   // See more -> https://stackoverflow.com/a/23426060
   app.set('trust proxy', 1);
 
-  // Setup middleware and routes (automatic harness to mount middleware and routes)
+  // Set up middleware and routes (automatic harness to mount middleware and routes)
   setupMiddleware(app);
-  setupRoutes(app);
+  await setupRoutes(app);
 
   logger.info('Passage server instance created...', {
     env, pid: env == "development" ? process.pid : undefined,

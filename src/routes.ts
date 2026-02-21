@@ -2,19 +2,14 @@ import { Application } from 'express';
 // import authRoutes from './routes/auth.routes';
 // import userRoutes from './routes/user.routes';
 import healthRoutes from './routes/health.routes';
+import {setupOidcRoutes} from "./routes/auth.routes";
 
-export function setupRoutes(app: Application) {
+export async function setupRoutes(app: Application) {
   // Health check (no auth required)
   app.use('/health', healthRoutes);
 
   // OAuth2/OIDC endpoints
-  // app.use('/oauth', authRoutes);
-
-  // User management
-  // app.use('/api/users', userRoutes);
-
-  // Well-known endpoints
-  // app.use('/.well-known', authRoutes);
+  await setupOidcRoutes(app)
 
   app.get('/', (req, res) => {
     res.json({
@@ -24,5 +19,4 @@ export function setupRoutes(app: Application) {
       timestamp: new Date().toISOString()
     });
   });
-
 }

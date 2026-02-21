@@ -14,14 +14,19 @@ async function bootstrap() {
     try {
         // Load configuration(s)
         // TODO Use a config manager to cache configs with attachable fetchers
-        const securityConfig: SecurityConfigType = loadSecurityConfig();
-        const providersConfig: ProvidersConfigType = loadProvidersConfig();
+        securityConfig = loadSecurityConfig();
+        providersConfig = loadProvidersConfig();
+
+        // Initialize services before app creation
+        await localKMS.initialize();
+        logger.info('Local KMS initialized');
 
         // Database connection(s)
         // await connectDatabase();
 
-        // Create Express app
-        const app = createApp();
+        // Create Express app (routes need configs + KMS to be ready)
+        const app = await createApp();
+        serverApp = app;
 
         // Start server
         const PORT = process.env.PORT || 3000;
@@ -35,15 +40,12 @@ async function bootstrap() {
         // Graceful shutdown handling
         setupGracefulShutdown(server);
 
-        serverApp = app;
-
-        localKMS.initialize().then(() => {
-            logger.info('Local KMS initialized');
-        });
-
         return server;
-    } catch (error) {
-        logger.error('Failed to start server', error);
+    } catch (error: any) {
+        logger.error('Failed to start server', {
+            message: error?.message,
+            stack: error?.stack
+        });
         process.exit(1);
     }
 }

@@ -272,7 +272,7 @@ class LocalKMS {
 
 /**
  * Singleton instance of LocalKMS.
- * Initialized on server startup in development environments.
+ * Initialized on server startup.
  */
 export const localKMS = new LocalKMS();
 

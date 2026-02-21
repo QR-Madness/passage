@@ -10,7 +10,7 @@ providers:
         - refresh_token
 
       # Upstream provider federation (e.g., Keycloak, Auth0, Okta)
-      upstream_issuer: "http://localhost:8080/realms/oidc-template"
+      upstream_issuer: "http://localhost:8080/realms/mock-oidc"
       upstream_client_id: "passage-broker"
       upstream_client_secret_ref: "UpstreamClientSecret" # Reference to secret in secrets.yaml
       upstream_scopes:

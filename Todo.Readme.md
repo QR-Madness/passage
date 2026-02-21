@@ -159,7 +159,7 @@ src/
     - Return router for mounting
 
 - [ ] **4.2 Update Main Routes** (`src/routes.ts`)
-    - Uncomment/add `setupProviderRoutes(app)` call
+    - Uncomment/add `setupOidcRoutes(app)` call
     - Ensure proper mounting order
 
 - [ ] **4.3 Bootstrap Integration** (`src/server.ts`)

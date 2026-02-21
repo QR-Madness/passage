@@ -4,9 +4,13 @@ import * as client from 'openid-client';
 import {ProviderEntryType} from '../../utils/schemas/config.schemas';
 import {localKMS} from '../kms-local';
 import {logger} from '../../utils/logger';
+import {ENV} from '../../utils/config';
 
 // Re-export openid-client for route handlers to use directly
 export {client};
+
+// Development mode: allow HTTP for local Keycloak
+const isDev = ENV === 'development';
 
 class UpstreamOidcFactory {
   private configs: Map<string, client.Configuration> = new Map();
@@ -36,8 +40,14 @@ class UpstreamOidcFactory {
     for (const provider of oidcProviders) {
       try {
         await this.registerProvider(provider);
-      } catch (error) {
-        logger.error(`Failed to register upstream provider: ${provider.name}`, error);
+      } catch (error: any) {
+        logger.error(`Failed to register upstream provider: ${provider.name}`, {
+          message: error?.message,
+          cause: error?.cause?.message,
+          status: error?.status,
+          code: error?.code,
+          issuer: provider.OidcConfig?.upstream_issuer
+        });
       }
     }
 
@@ -113,10 +123,13 @@ class UpstreamOidcFactory {
     }
 
     // Discover issuer metadata and create configuration
+    // In development, allow HTTP (Keycloak runs on http://localhost:8080)
     const config = await client.discovery(
       new URL(oidcConfig.upstream_issuer),
       oidcConfig.upstream_client_id,
-      clientSecret
+      clientSecret,
+      undefined,  // client_auth_method (use default)
+      isDev ? {execute: [client.allowInsecureRequests]} : undefined
     );
 
     this.configs.set(provider.name, config);
